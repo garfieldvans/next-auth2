@@ -53,12 +53,12 @@ const Header = () => {
           </div>
           {/* <div className="h-px bg-gray-300 w-full mb-3"/> */}
           <div className="py-3 pl-2 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out font-medium">
-            <Link href="#" className="grid grid-cols-7 w-full">
+            <button className="grid grid-cols-7"  onClick={() => signOut({callbackUrl: '/login', redirect: true})}>
               <MdLogout className="text-xl" />
               <span className="hidden group-hover:block text-sm col-span-6">
                 Logout
               </span>
-            </Link>
+            </button>
           </div>
         </div>
       </aside>
@@ -96,7 +96,7 @@ const Header = () => {
           <div className="flex items-center p-3 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out">
             <button
               className="flex flex-row gap-x-2 items-center"
-              onClick={() => signOut()}
+              onClick={() => signOut({callbackUrl: '/login', redirect: true})}
             >
               <MdLogout className="text-xl" />
               <span className="inline-block text-sm">Logout</span>
