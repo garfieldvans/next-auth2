@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3080/api/users'; // Ganti YOUR_PORT dengan port API Anda
+const API_URL = 'http://localhost:3080/api/users'; // Sesuaikan URL API Anda
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,10 +9,10 @@ const api = axios.create({
 export const loginUser = async (email, password) => {
   try {
     const response = await api.post('/login', { email, password });
-    return response.data;
+    console.log('Login successful:', response.data);
+    return response.data; // Assuming response.data contains user data and passwordHash
   } catch (error) {
-    throw error.response.data;
+    console.error('Login error:', error.response ? error.response.data : error.message);
+    throw error.response ? error.response.data : new Error('Unknown error');
   }
-
 };
-console.log(loginUser(email, password));

@@ -4,38 +4,40 @@ import React, { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginAction } from "../pages/components/action/loginAction";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AuthLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
  
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");  // Clear previous errors
 
     try {
-      await signIn("credentials", {
+      const response = await signIn("credentials", {
         redirect: false,
-        email: e.target.email,
-        password: e.target.password,
-        callbackUrl: `/pages/dashboard`,
-      })
-        .then((response) => {
-          if (response.ok) {
-            redirectdashboard();
-          } else {
-            setError("Email or password you entered is incorrect.");
-            setIsLoading(false);
-          }
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setError("Email or password you entered is incorrect.");
-        });
+        email,
+        password,
+      });
+
+      console.log("Response from signIn:", response);
+
+      if (response?.ok) {
+        window.location.href = "/pages/dashboard";
+      } else {
+        setError("Email or password you entered is incorrect.");
+        console.error("Error response:", response);
+      }
     } catch (error) {
       console.error("Sign-in error:", error);
-      setError("Sign-in failed. Please try again."); // Generic error message
+      setError("Sign-in failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
