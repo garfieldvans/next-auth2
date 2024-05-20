@@ -29,6 +29,12 @@ const AuthLogin = () => {
       console.log("Response from signIn:", response);
 
       if (response?.ok) {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          console.log('Token stored in localStorage:', localStorage.getItem('token'));
+        } else {
+          console.error('Token not found in response');
+        }
         window.location.href = "/pages/dashboard";
       } else {
         setError("Email or password you entered is incorrect.");
@@ -110,10 +116,11 @@ const AuthLogin = () => {
                   </a>
                 </div>
                 <button
-                  type="submit" // Call handleLogin when button is clicked
+                  type="submit" // Call handleSubmit when button is clicked
                   className="flex w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:outline-none focus:ring-indigo-500 font-medium rounded-lg text-sm px-5 py-2.5 items-center justify-center"
+                  disabled={isLoading}
                 >
-                  Sign in
+                  {isLoading ? "Signing up..." : "Sign up"}
                 </button>
                 <p className="text-sm font-light text-gray-400">
                   Don’t have an account yet?{" "}

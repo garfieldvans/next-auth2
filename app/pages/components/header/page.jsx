@@ -20,12 +20,12 @@ const Header = () => {
     processedPath.length > 1 ? processedPath[1] : processedPath[0];
   return (
     <div>
-      <div className=" sticky top-0 w-full flex items-center font-bold text-xl md:text-2xl justify-center py-4 md:py-5 bg-indigo-950 h-16 md:h-20 drop-shadow-xl">
+      <div className=" fixed top-0 w-full flex items-center font-bold text-xl md:text-2xl justify-center py-4 md:py-5 bg-indigo-950 h-16 md:h-20 shadow-[0px_5px_9px_0px_#667eea]">
           <span className="text-gray-100 capitalize">{displayPath}</span>
         </div>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 h-screen bg-indigo-950 group transition-all duration-200 ease-in-out w-16 hover:w-60 md:inline hidden"
+        className="fixed top-0 left-0 z-40 h-screen bg-indigo-950 group transition-all duration-200 ease-in-out w-16 hover:w-60 md:inline hidden hover:shadow-[0px_5px_9px_0px_#667eea]"
         aria-label="Sidebar"
       >
         <div className="text-indigo-950 m-3 p-2 hidden md:flex text-1xl font-semibold bg-gray-100 rounded-full flex-row justify-content items-center w-12 h-12 text-center">

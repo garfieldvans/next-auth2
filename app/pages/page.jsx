@@ -14,7 +14,7 @@ export default function Homes() {
     redirect("/login")
   }
   return (
-    <div className="bg-white flex items-center justify-center">
+    <div className="bg-white flex items-center justify-center ">
       {/* <AuthLogin/> */}
     </div>
   );

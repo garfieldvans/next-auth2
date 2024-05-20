@@ -21,14 +21,17 @@ const authOptions = {
         try {
           const data = await loginUser(credentials.email, credentials.password);
           console.log("Response from login API:", data);
+          console.log(credentials?.password)
+          console.log(data.token)
 
           // Compare the provided password with the hashed password from the response
-          const isValid = await compare(credentials.password, data.password);
+          const isValid = await compare(credentials.password, data.user.password);
 
           if (isValid) {
             return {
-              token: data.access,
-              name: data.name, // assuming name is returned from API
+              token: data.token,
+              name: data.user.fullname, // assuming name is returned from API
+              username: data.user.userName, // assuming name is returned from API
               email: credentials.email,
             };
           } else {
@@ -42,33 +45,22 @@ const authOptions = {
       },
     }),
   ],
-  logger: {
-    error(code, metadata) {
-      console.error(code, metadata);
-    },
-    warn(code) {
-      console.warn(code);
-    },
-    debug(code, metadata) {
-      console.debug(code, metadata);
-    },
-  },
   callbacks: {
-    signIn: async ({ account }) => {
-      if (account.provider === "credentials") return true;
-      return false;
-    },
-    jwt: async ({ token, user, account }) => {
-      if (user && account.provider === "credentials") {
+    jwt: async ({ token, user }) => {
+      if (user) {
         token.accessToken = user.token;
-        token.provider = account.provider;
+        token.fullname = user.name;
+        token.username = user.username;
+        token.email = user.email;
       }
       return token;
     },
     session: async ({ session, token }) => {
       if (token) {
         session.accessToken = token.accessToken;
-        session.provider = token.provider;
+        session.fullname = token.fullname;
+        session.username = token.username;
+        session.email = token.email;
       }
       return session;
     },

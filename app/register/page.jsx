@@ -1,7 +1,40 @@
+'use client'
+
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import { addUser } from '@/app/api/api'; // Sesuaikan dengan path yang benar
 
 const Register = () => {
+  const [fullname, setName] = useState("");
+  const [userName, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const userData = { fullname, userName, email, password };
+      await addUser(userData);
+      setSuccess("Registration successful. You can now sign in.");
+      setName("");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="w-full justify-center flex md:py-6">
       <section className="bg-indigo-950 md:w-5/12 w-full h-screen md:h-auto md:rounded-2xl px-6 md:px-2">
@@ -18,46 +51,46 @@ const Register = () => {
                 Sign up here
               </h1>
 
+              {error && <div className="text-red-500">{error}</div>}
+              {success && <div className="text-green-500">{success}</div>}
               <form
                 className="space-y-4 md:space-y-6"
-                // onSubmit={handleSubmit}
+                onSubmit={handleSubmit}
               >
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="name"
                     className="block mb-2 text-sm font-medium text-white"
                   >
                     Name
                   </label>
                   <input
                     type="text"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={fullname}
+                    onChange={(e) => setName(e.target.value)}
                     name="name"
                     id="name"
                     className="bg-white border text-black sm:text-sm rounded-lg block w-full p-2.5 bg-indigo-950 placeholder-gray-400 focus:outline-0"
-                    placeholder="bastian@blabla.com"
+                    placeholder="Enter your name"
                     required
-                    
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="username"
                     className="block mb-2 text-sm font-medium text-white"
                   >
                     Username
                   </label>
                   <input
                     type="text"
-                    // value={username}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={userName}
+                    onChange={(e) => setUsername(e.target.value)}
                     name="username"
                     id="username"
                     className="bg-white border text-black sm:text-sm rounded-lg block w-full p-2.5 bg-indigo-950 placeholder-gray-400 focus:outline-0"
-                    placeholder="bastian@blabla.com"
+                    placeholder="Enter your username"
                     required
-                    
                   />
                 </div>
                 <div>
@@ -69,14 +102,13 @@ const Register = () => {
                   </label>
                   <input
                     type="email"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     name="email"
                     id="email"
                     className="bg-white border text-black sm:text-sm rounded-lg block w-full p-2.5 bg-indigo-950 placeholder-gray-400 focus:outline-0"
-                    placeholder="bastian@blabla.com"
+                    placeholder="Enter your email"
                     required
-                    
                   />
                 </div>
                 <div>
@@ -88,20 +120,21 @@ const Register = () => {
                   </label>
                   <input
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     placeholder="••••••••"
                     className="bg-white border text-black sm:text-sm rounded-lg block w-full p-2.5 bg-indigo-950 placeholder-gray-400 focus:outline-0"
-                    // value={password}
-                    // onChange={(e) => setPassword(e.target.value)}
                     name="password"
                     required
                   />
                 </div>
                 <button
-                  type="submit" // Call handleLogin when button is clicked
+                  type="submit" // Call handleSubmit when button is clicked
                   className="flex w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:outline-none focus:ring-indigo-500 font-medium rounded-lg text-sm px-5 py-2.5 items-center justify-center"
+                  disabled={isLoading}
                 >
-                  Sign up
+                  {isLoading ? "Signing up..." : "Sign up"}
                 </button>
                 <p className="text-sm font-light text-gray-400">
                   Already have an account?{" "}
@@ -118,7 +151,7 @@ const Register = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
