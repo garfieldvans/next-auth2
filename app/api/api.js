@@ -1,16 +1,14 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3080/api/users'; // Sesuaikan URL API Anda
-
+const API_URL = 'http://localhost:3080/api/users'; 
 const api = axios.create({
   baseURL: API_URL,
 });
 
-// Interceptor untuk menambahkan token autentikasi ke setiap permintaan
 api.interceptors.request.use(
   config => {
-    if (typeof window !== 'undefined') { // Pastikan hanya dijalankan di client-side
-      const token = localStorage.getItem('token'); // Atau cara lain untuk mendapatkan token
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token'); 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -24,14 +22,12 @@ api.interceptors.request.use(
 
 export const addUser = async (userData) => {
   try {
-    // Cek apakah email sudah digunakan
     const users = await getUsers();
     const existingUser = users.find(user => user.email === userData.email);
     if (existingUser) {
       throw new Error('Email has already been used. Please use a different email.');
     }
     
-    // Jika email belum digunakan, tambahkan user
     const response = await api.post("/signup", userData);
     console.log("User added successfully:", response.data);
     return response.data;
@@ -43,7 +39,7 @@ export const addUser = async (userData) => {
 
 export const getUsers = async () => {
   const response = await api.get("/");
-  return response.data; // Anggap saja response.data berisi data pengguna
+  return response.data;
 };
 
 
@@ -64,7 +60,6 @@ export const loginUser = async (email, password) => {
     const response = await api.post('/login', { email, password });
     console.log('Login successful:', response.data);
 
-    // Pastikan respons memiliki token
     if (response.data.token) {
       if (typeof window !== 'undefined') {
         localStorage.setItem('token', response.data.token);

@@ -16,13 +16,13 @@ const Header = () => {
 
   const currentPath = usePathname();
   const processedPath = currentPath.split("/").filter(Boolean);
- const displayPath =
+  const displayPath =
     processedPath.length > 1 ? processedPath[1] : processedPath[0];
   return (
     <div>
       <div className=" fixed top-0 w-full flex items-center font-bold text-xl md:text-2xl justify-center py-4 md:py-5 bg-indigo-950 h-16 md:h-20 shadow-[0px_5px_9px_0px_#667eea]">
-          <span className="text-gray-100 capitalize">{displayPath}</span>
-        </div>
+        <span className="text-gray-100 capitalize">{displayPath}</span>
+      </div>
       <aside
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 h-screen bg-indigo-950 group transition-all duration-200 ease-in-out w-16 hover:w-60 md:inline hidden hover:shadow-[0px_5px_9px_0px_#667eea]"
@@ -53,7 +53,10 @@ const Header = () => {
           </div>
           {/* <div className="h-px bg-gray-300 w-full mb-3"/> */}
           <div className="py-3 pl-2 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out font-medium">
-            <button className="grid grid-cols-7"  onClick={() => signOut({callbackUrl: '/login', redirect: true})}>
+            <button
+              className="grid grid-cols-7"
+              onClick={() => signOut({ callbackUrl: "/login", redirect: true })}
+            >
               <MdLogout className="text-xl" />
               <span className="hidden group-hover:block text-sm col-span-6">
                 Logout
@@ -96,7 +99,7 @@ const Header = () => {
           <div className="flex items-center p-3 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 ease-in-out">
             <button
               className="flex flex-row gap-x-2 items-center"
-              onClick={() => signOut({callbackUrl: '/login', redirect: true})}
+              onClick={() => signOut({ callbackUrl: "/login", redirect: true })}
             >
               <MdLogout className="text-xl" />
               <span className="inline-block text-sm">Logout</span>

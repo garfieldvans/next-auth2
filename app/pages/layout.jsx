@@ -14,7 +14,6 @@ export default function PagesLayout({
       <div className="md:pl-16  pl-0 pt-16 md:pt-20">
         <AuthProvider session={session}><div className="p-4 ">{children}</div></AuthProvider>
         
-        {/* </SessionProvider> */}
       </div>
     </div>
   );

@@ -24,14 +24,13 @@ const authOptions = {
           console.log(credentials?.password)
           console.log(data.token)
 
-          // Compare the provided password with the hashed password from the response
           const isValid = await compare(credentials.password, data.user.password);
 
           if (isValid) {
             return {
               token: data.token,
-              name: data.user.fullname, // assuming name is returned from API
-              username: data.user.userName, // assuming name is returned from API
+              name: data.user.fullname, 
+              username: data.user.userName, 
               email: credentials.email,
             };
           } else {

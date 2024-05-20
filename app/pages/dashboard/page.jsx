@@ -9,8 +9,8 @@ const Dashboard = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return; // Do nothing while loading
-    if (!session) router.push("/login"); // Redirect if not authenticated
+    if (status === "loading") return; 
+    if (!session) router.push("/login"); 
   }, [session, status, router]);
 
   if (status === "loading") {
