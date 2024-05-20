@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import { redirect } from "next/navigation";
-import useSessionCheck from "../hook/useSessionCheck";
+import useSessionCheck from "../hook/use.SessionCheck";
 
 export default function Homes() {
 

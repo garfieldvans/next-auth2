@@ -1,8 +1,6 @@
 "use client";
 
 import React, { FormEvent, useState } from "react";
-import { useForm } from "react-hook-form";
-import { loginAction } from "../pages/components/action/loginAction";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
