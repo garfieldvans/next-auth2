@@ -1,13 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function App() {
   
-  const router = useRouter()
-
-  const toRepo = router.push('https://github.com/garfieldvans/next-auth2')
   return (
     <div className="bg-white flex flex-col items-center justify-center p-6">
       <div className="bg-gray-200 flex w-full p-6 rounded-lg flex-wrap flex-row justify-center items-center">
@@ -37,7 +33,7 @@ export default function App() {
         </div>
 
         <div>
-          <button className="bg-gray-100 p-2 text-indigo-950 my-4 rounded-xl text-center hover:font-bold hover:underline" onClick={toRepo}>REPOSITORY</button>
+          <a href="https://github.com/garfieldvans/next-auth2" className="bg-gray-100 p-2 text-indigo-950 my-4 rounded-xl text-center hover:font-bold hover:underline" >REPOSITORY</a>
         </div>
       </div>
     </div>
